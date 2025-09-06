@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Dashboard from "./Pages/Dashboard";
+import { Route, Routes } from 'react-router-dom';
+import Login from "./Pages/Login";
+import NotFound from "./Pages/NotFound";
+import { useEffect } from "react";
+import ProtectedRoute from "./Components/ProtectedRoutes";
 function App() {
+
+  useEffect(() => {
+    const timestamp = localStorage.getItem('tokenTimestamp');
+    const now = Date.now();
+    const TWO_DAYS = 2 * 24 * 60 * 60 * 1000;
+    if (timestamp && now - Number(timestamp) > TWO_DAYS) {
+      localStorage.clear();
+    }
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<Dashboard />} />
+        {/* <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+
     </div>
   );
 }
