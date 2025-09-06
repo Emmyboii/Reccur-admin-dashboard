@@ -3,7 +3,8 @@ import { Route, Routes } from 'react-router-dom';
 import Login from "./Pages/Login";
 import NotFound from "./Pages/NotFound";
 import { useEffect } from "react";
-import ProtectedRoute from "./Components/ProtectedRoutes";
+// import ProtectedRoute from "./Components/ProtectedRoutes";
+// import PublicRoute from "./Components/PublicRoute";
 function App() {
 
   useEffect(() => {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         {/* <Route path="/" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
         <Route path="/login" element={<Login />} />
+        {/* <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} /> */}
         <Route path="*" element={<NotFound />} />
       </Routes>
 
