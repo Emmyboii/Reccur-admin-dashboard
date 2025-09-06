@@ -50,7 +50,7 @@ const Login = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, {
+            const response = await fetch(`https://reccur-141b5bf0e007.herokuapp.com/api/v1/login`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
@@ -109,7 +109,7 @@ const Login = () => {
                         </div>
                     </a>
                 </div>
-                <div className='mx-auto flex flex-col w-[500px] flex flex-col justify-center h-[90vh]'>
+                <div className='mx-auto flex flex-col w-[500px] justify-center h-[90vh]'>
                     <div className='flex flex-col gap-4 items-center'>
                         <p className='text-[#1D1C1F] text-[36px] 3xl:text-[58px] text-center font-semibold'>Sign in</p>
                     </div>

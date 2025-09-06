@@ -1,15 +1,14 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
-const ProtectedRoute = () => {
+const ProtectedRoute = ({ children }) => {
+    const token = localStorage.getItem("reccurAdminToken");
 
-    const token = localStorage.getItem('reccurAdminToken')
-    const isAuthenticated = token && token !== 'undefined' && token !== 'null';
+    if (!token) {
+        // If no token, redirect to login
+        return <Navigate to="/login" replace />;
+    }
 
-    return isAuthenticated ? (
-        <Outlet />
-    ) : (
-        <Navigate to='/login' />
-    )
-}
+    return children; // ✅ If logged in, show Dashboard
+};
 
-export default ProtectedRoute
+export default ProtectedRoute;
