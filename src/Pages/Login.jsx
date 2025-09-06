@@ -99,7 +99,7 @@ const Login = () => {
     }, [showModal]);
 
     return (
-        <div className='h-screen sm:p-10 p-5'>
+        <div className='h-[90vh] sm:p-10 p-5'>
             <div className='flex flex-col gap-10 h-full relative'>
                 <div className='flex items-center justify-between 3xl:ml-10'>
                     <a href="/">
