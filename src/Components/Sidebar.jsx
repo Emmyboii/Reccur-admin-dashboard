@@ -22,7 +22,7 @@ const Sidebar = ({ closeSidebar }) => {
           end
           onClick={closeSidebar}
           className={({ isActive }) =>
-            `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium 
+            `flex items-center gap-3 px-3 py-2 rounded-lg text-base font-medium 
             ${isActive ? "bg-indigo-100 text-indigo-700" : "text-gray-600 hover:bg-gray-100"}`
           }
         >
@@ -34,7 +34,7 @@ const Sidebar = ({ closeSidebar }) => {
           to="/users"
           onClick={closeSidebar}
           className={({ isActive }) =>
-            `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium 
+            `flex items-center gap-3 px-3 py-2 rounded-lg text-base font-medium 
             ${isActive ? "bg-indigo-100 text-indigo-700" : "text-gray-600 hover:bg-gray-100"}`
           }
         >

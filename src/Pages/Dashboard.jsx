@@ -17,75 +17,54 @@ const Dashboard = () => {
   const [signUpData, setSignUpData] = useState([]);
   const [totalClient, setTotalClient] = useState({});
   const [userJourney, setUserJourney] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("reccurAdminToken");
-    const fetchSignUpData = async () => {
+
+    const fetchData = async () => {
+      setLoading(true); // start loader
       try {
-        const res = await fetch(
+        // Fetch signup data
+        const res1 = await fetch(
           "https://reccur-141b5bf0e007.herokuapp.com/api/v1/get_signup_data",
           {
             method: "GET",
-            headers: {
-              Authorization: `Token ${token}`,
-            },
+            headers: { Authorization: `Token ${token}` },
           }
         );
-        const data = await res.json();
-        setSignUpData(data);
-      } catch (error) {
-        console.error("Error fetching sign up data:", error);
-      }
-    };
+        const data1 = await res1.json();
+        setSignUpData(data1);
 
-    fetchSignUpData();
-  }, []);
-
-  useEffect(() => {
-    const token = localStorage.getItem("reccurAdminToken");
-    const fetchTotalClient = async () => {
-      try {
-        const res = await fetch(
+        // Fetch total clients
+        const res2 = await fetch(
           "https://reccur-141b5bf0e007.herokuapp.com/api/v1/get_total_clients",
           {
             method: "GET",
-            headers: {
-              Authorization: `Token ${token}`,
-            },
+            headers: { Authorization: `Token ${token}` },
           }
         );
-        const data = await res.json();
-        setTotalClient(data);
-      } catch (error) {
-        console.error("Error fetching total clients:", error);
-      }
-    };
+        const data2 = await res2.json();
+        setTotalClient(data2);
 
-    fetchTotalClient();
-  }, []);
-
-  useEffect(() => {
-    const token = localStorage.getItem("reccurAdminToken");
-
-    const fetchUserJourney = async () => {
-      try {
-        const res = await fetch(
+        // Fetch user journey
+        const res3 = await fetch(
           "https://reccur-141b5bf0e007.herokuapp.com/api/v1/get_user_journey",
           {
             method: "GET",
-            headers: {
-              Authorization: `Token ${token}`,
-            },
+            headers: { Authorization: `Token ${token}` },
           }
         );
-        const data = await res.json();
-        setUserJourney(data);
+        const data3 = await res3.json();
+        setUserJourney(data3);
       } catch (error) {
-        console.error("Error fetching user journey:", error);
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false); // stop loader regardless of success/failure
       }
     };
 
-    fetchUserJourney();
+    fetchData();
   }, []);
 
   // Compute percentages relative to total signups
@@ -95,9 +74,16 @@ const Dashboard = () => {
     percentage: ((d.count / totalSignups) * 100).toFixed(1),
   }));
 
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-600"></div>
+      </div>
+    );
+  }
+
   return (
     <div className="px-4 sm:px-6 md:px-10 lg:px-14 space-y-8 bg-gray-50 min-h-screen">
-
       {/* User Signups Section */}
       <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-md">
         <h2 className="text-xl sm:text-2xl font-bold mb-4">📊 User Signups</h2>

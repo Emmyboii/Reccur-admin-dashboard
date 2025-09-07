@@ -8,6 +8,7 @@ import PublicRoute from "./Components/PublicRoute";
 import Sidebar from "./Components/Sidebar";
 import Users from "./Pages/Users";
 import { FiMenu } from "react-icons/fi";
+import UserDetails from "./Pages/UserDetails";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -86,6 +87,14 @@ function App() {
               element={
                 <ProtectedRoute>
                   <Users />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/users/:id"
+              element={
+                <ProtectedRoute>
+                  <UserDetails />
                 </ProtectedRoute>
               }
             />
