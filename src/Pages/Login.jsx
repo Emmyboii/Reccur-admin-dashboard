@@ -99,7 +99,7 @@ const Login = () => {
     }, [showModal]);
 
     return (
-        <div className='h-[90vh] sm:p-10 p-5'>
+        <div className='h-[90vh] w-full sm:p-10 p-5'>
             <div className='flex flex-col gap-10 h-full relative'>
                 <div className='flex items-center justify-between 3xl:ml-10'>
                     <a href="/">
@@ -109,7 +109,7 @@ const Login = () => {
                         </div>
                     </a>
                 </div>
-                <div className='mx-auto flex flex-col w-[500px] justify-center h-[90vh]'>
+                <div className='mx-auto flex flex-col sm:w-[500px] w-full justify-center h-[90vh]'>
                     <div className='flex flex-col gap-4 items-center'>
                         <p className='text-[#1D1C1F] text-[36px] 3xl:text-[58px] text-center font-semibold'>Sign in</p>
                     </div>

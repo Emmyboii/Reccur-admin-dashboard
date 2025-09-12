@@ -87,7 +87,7 @@ const Dashboard = () => {
       {/* User Signups Section */}
       <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-md">
         <h2 className="text-xl sm:text-2xl font-bold mb-4">📊 User Signups</h2>
-        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 mb-6">
+        <div className="flex justify-between pb-7 gap-4 sm:gap-8 mb-6">
           <div className="text-base sm:text-lg">
             <p className="font-semibold">Total Users</p>
             <p className="text-blue-600 text-xl sm:text-2xl">
@@ -104,13 +104,17 @@ const Dashboard = () => {
 
         <div className="w-full h-64 sm:h-72 md:h-80">
           <ResponsiveContainer width="100%" height="100%">
-            <ComposedChart data={signUpData}>
+            <ComposedChart data={signUpData} margin={{ top: 0, right: 0, left: -25, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
-              <XAxis dataKey="date" />
+              <XAxis
+                dataKey="date"
+                tickFormatter={(date) => new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+              />
               <YAxis />
               <Tooltip />
               <Legend />
               <Bar dataKey="newUsers" fill="#82ca9d" name="Daily New Users" />
+              <LabelList dataKey="newUsers" position="top" />
               <Line
                 type="monotone"
                 dataKey="totalUsers"
@@ -127,7 +131,7 @@ const Dashboard = () => {
         <h2 className="text-xl sm:text-2xl font-bold mb-4">👤 User Journey</h2>
         <div className="w-full h-64 sm:h-72 md:h-80">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={journeyData}>
+            <BarChart data={journeyData} margin={{ top: 0, right: 0, left: -25, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="stage" />
               <YAxis />

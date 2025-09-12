@@ -10,7 +10,7 @@ const UserDetails = () => {
     const [user, setUser] = useState([]);
     const [account, setAccount] = useState([]);
     const [kyc, setKyc] = useState([]);
-    const [balance, setBalance] = useState([]);
+    // const [balance, setBalance] = useState([]);
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -76,19 +76,19 @@ const UserDetails = () => {
                 setKyc(data4);
                 console.log(data4);
 
-                const res5 = await fetch(
-                    `https://reccur-141b5bf0e007.herokuapp.com/api/v1/get_wallet_balance?user_id=${id}`,
-                    {
-                        method: "GET",
-                        headers: {
-                            Authorization: token ? `Token ${token}` : "",
-                        },
-                    }
-                );
-                const data5 = await res5.json()
+                // const res5 = await fetch(
+                //     `https://reccur-141b5bf0e007.herokuapp.com/api/v1/get_wallet_balance?user_id=${id}`,
+                //     {
+                //         method: "GET",
+                //         headers: {
+                //             Authorization: token ? `Token ${token}` : "",
+                //         },
+                //     }
+                // );
+                // const data5 = await res5.json()
 
-                setBalance(data5);
-                console.log(data5)
+                // setBalance(data5);
+                // console.log(data5)
 
             } catch (err) {
                 console.error("Error fetching users:", err);
@@ -168,29 +168,31 @@ const UserDetails = () => {
 
             {/* Accounts Section */}
             <div className="bg-white sm:p-6 p-3 rounded-2xl shadow-sm mt-6">
-                <h3 className="font-semibold text-gray-800 text-2xl">Bank Accounts</h3>
-
+                <div className="flex justify-between items-center">
+                    <h3 className="font-semibold text-gray-800 text-2xl">Bank Accounts</h3>
+                    <div className="flex space-x-0 mt-3 border border-black/50 rounded-lg overflow-hidden">
+                        {account.map((acc, idx) => (
+                            <button
+                                key={acc.type}
+                                onClick={() => setSelectedAccount(acc.currency)}
+                                className={`px-4 py-3 text-sm font-medium transition-colors duration-200
+                                        ${selectedAccount === acc.currency
+                                        ? "bg-[#080280] text-white"
+                                        : "text-gray-600 bg-transparent"}
+                                        ${idx === 0 ? "rounded-l-lg" : ""}
+                                        ${idx === account.length - 1 ? "rounded-r-lg" : ""}
+                                    `}
+                            >
+                                {acc.currency} Account
+                            </button>
+                        ))}
+                    </div>
+                </div>
                 {account.length === 0 ? (
                     <p className="mt-4 text-gray-500 italic">No accounts available for this user.</p>
                 ) : (
                     <>
-                        <div className="flex space-x-0 mt-3 border border-black/50 rounded-lg overflow-hidden">
-                            {account.map((acc, idx) => (
-                                <button
-                                    key={acc.type}
-                                    onClick={() => setSelectedAccount(acc.currency)}
-                                    className={`px-4 py-3 text-sm font-medium transition-colors duration-200
-                                        ${selectedAccount === acc.currency
-                                            ? "bg-[#080280] text-white"
-                                            : "text-gray-600 bg-transparent"}
-                                        ${idx === 0 ? "rounded-l-lg" : ""}
-                                        ${idx === account.length - 1 ? "rounded-r-lg" : ""}
-                                    `}
-                                >
-                                    {acc.currency} Account
-                                </button>
-                            ))}
-                        </div>
+
 
                         {currentAccount && (
                             <div className="mt-4 border rounded-lg p-4 flex items-center justify-between bg-gray-50">
@@ -210,7 +212,7 @@ const UserDetails = () => {
                                             <span className="font-bold text-xl text-gray-900">
                                                 {currentAccount.currency}{" "}
                                                 {roundUp(
-                                                    convertBalance(balance.balance, "USD", currentAccount.currency),
+                                                    convertBalance(user.wallet_balance, "USD", currentAccount.currency),
                                                     1
                                                 )}
                                             </span>
