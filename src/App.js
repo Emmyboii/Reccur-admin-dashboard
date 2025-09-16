@@ -58,7 +58,7 @@ function App() {
       )}
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Top bar with menu button for mobile */}
         {!hide && (
           <div className="mp:hidden flex items-center justify-between bg-white p-4 shadow-sm">
@@ -72,7 +72,7 @@ function App() {
           </div>
         )}
 
-        <div className="p-4 flex-1">
+        <div className="p-4 flex-1 min-w-0">
           <Routes>
             <Route
               path="/"

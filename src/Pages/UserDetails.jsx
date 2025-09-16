@@ -155,12 +155,12 @@ const UserDetails = () => {
                     </div>
                     <div className="mt-4 sm:mt-0">
                         <span
-                            className={`px-4 py-2 rounded-full text-sm font-semibold ${kyc.id
+                            className={`px-4 py-2 rounded-full text-sm font-semibold ${user.walapay_customer_id
                                 ? "bg-green-100 text-green-700"
                                 : "bg-red-100 text-red-700"
                                 }`}
                         >
-                            {kyc.id ? "KYC Approved" : "KYC Pending"}
+                            {user.walapay_customer_id ? "KYC Approved" : "KYC Pending"}
                         </span>
                     </div>
                 </div>
