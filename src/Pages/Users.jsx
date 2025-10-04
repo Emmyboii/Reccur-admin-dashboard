@@ -13,7 +13,7 @@ const Users = () => {
     useEffect(() => {
         const fetchUsersAndData = async () => {
             try {
-                const token = localStorage.getItem("token");
+                const token = localStorage.getItem("reccurAdminToken");
 
                 const res = await fetch(
                     "https://reccur-141b5bf0e007.herokuapp.com/api/v1/dashboard/get_users",
