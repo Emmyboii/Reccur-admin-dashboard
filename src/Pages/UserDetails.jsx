@@ -62,19 +62,6 @@ const UserDetails = () => {
                 setTransactions(data3);
                 console.log(data3);
 
-                const res4 = await fetch(
-                    `https://reccur-141b5bf0e007.herokuapp.com/api/v1/kyc?user_id=${id}`,
-                    {
-                        method: "GET",
-                        headers: {
-                            Authorization: token ? `Token ${token}` : "",
-                        },
-                    }
-                );
-                const data4 = await res4.json()
-
-                setKyc(data4);
-                console.log(data4);
 
                 // const res5 = await fetch(
                 //     `https://reccur-141b5bf0e007.herokuapp.com/api/v1/get_wallet_balance?user_id=${id}`,
@@ -101,6 +88,26 @@ const UserDetails = () => {
         fetchUsers();
     }, [id]);
 
+    useEffect(() => {
+        const fetchkyc = async () => {
+            const token = localStorage.getItem("reccurAdminToken")
+            const res4 = await fetch(
+                `https://reccur-141b5bf0e007.herokuapp.com/api/v1/kyc?user_id=${id}`,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: token ? `Token ${token}` : "",
+                    },
+                }
+            );
+            const data4 = await res4.json()
+
+            setKyc(data4);
+            console.log(data4);
+        }
+        fetchkyc()
+    }, [id])
+
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
@@ -121,6 +128,7 @@ const UserDetails = () => {
     const flags = {
         USD: "https://flagcdn.com/us.svg",
         EUR: "https://flagcdn.com/eu.svg",
+        NGN: "https://flagcdn.com/ng.svg",
     };
 
     const roundUp = (value, decimals = 2) => {
@@ -160,7 +168,7 @@ const UserDetails = () => {
                                 : "bg-red-100 text-red-700"
                                 }`}
                         >
-                            {user.walapay_customer_id ? "KYC Approved" : "KYC Pending"}
+                            {user.walapay_customer_id ? "KYC Approved" : "KYC Not Apporoved"}
                         </span>
                     </div>
                 </div>

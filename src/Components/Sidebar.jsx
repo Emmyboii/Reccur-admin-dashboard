@@ -1,10 +1,17 @@
 import { NavLink } from "react-router-dom";
 import { FiHome, FiUsers } from "react-icons/fi";
 import Logo from "../Images/Logo base2.svg";
+import { IoLogOutOutline } from "react-icons/io5";
 
 const Sidebar = ({ closeSidebar }) => {
+
+  const logout = () => {
+    localStorage.clear()
+    window.location.reload()
+  }
+
   return (
-    <div className="h-screen w-64 bg-white border-r border-gray-200 flex flex-col">
+    <div className="h-screen w-64 bg-white border-r fixed border-gray-200 flex flex-col">
       {/* Logo/Header */}
       <div className="h-16 flex items-center px-3 border-b border-gray-200">
         <a href="/" onClick={closeSidebar}>
@@ -42,6 +49,15 @@ const Sidebar = ({ closeSidebar }) => {
           Users
         </NavLink>
       </nav>
+
+      <div
+        to="/users"
+        onClick={() => logout()}
+        className={`flex items-center gap-3 cursor-pointer text-red-500 px-6 absolute bottom-5 py-2 rounded-lg text-base font-medium`}
+      >
+        <IoLogOutOutline size={18} />
+        Log Out
+      </div>
     </div>
   );
 };
