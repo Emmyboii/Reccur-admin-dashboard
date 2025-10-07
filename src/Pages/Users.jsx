@@ -138,7 +138,7 @@ const Users = () => {
                             users.map((user) => {
                                 const userAcc = accounts.find((a) => a.userId === user.id);
                                 const trans = transactions.find((a) => a.userId === user.id);
-                                // const kycdata = kyc.find((a) => a.userId === user.id);
+                                const kycdata = kyc.find((a) => a.userId === user.id);
                                 return (
                                     <tr
                                         key={user.id}
@@ -147,7 +147,7 @@ const Users = () => {
                                         <td className="px-3 py-3">{user.fullname}</td>
                                         <td className="px-3 py-3">{user.email}</td>
                                         <td className="px-3 py-3">
-                                            {user.circle_wallet_id ? "✅" : "❌"}
+                                            {kycdata?.kyc?.id ? "✅" : "❌"}
                                         </td>
                                         <td className="px-3 py-3 text-center">
                                             {userAcc?.accounts?.length || 0}
