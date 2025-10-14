@@ -103,6 +103,33 @@ const Users = () => {
         fetchUsersAndData();
     }, []);
 
+    function formatPhoneNumber(number) {
+        if (!number) return '';
+
+        // Remove spaces and special characters just in case
+        number = number.replace(/[\s-]/g, '');
+
+        // Remove +243 country code if present
+        if (number.startsWith('+243')) {
+            number = number.replace('+243', '');
+        }
+
+        // If it starts with 243 without +, remove it too
+        if (number.startsWith('243')) {
+            number = number.replace('243', '');
+        }
+
+        // If it doesn't start with 0, add it
+        if (!number.startsWith('0')) {
+            number = '0' + number;
+        }
+
+        // Make sure it's only 10 or 11 digits max (clean up)
+        number = number.replace(/[^\d]/g, '').slice(0, 11);
+
+        return number;
+    }
+
     if (loading) {
         return (
             <div className="flex items-center justify-center min-h-screen">
@@ -117,15 +144,20 @@ const Users = () => {
 
     return (
         <div className="p-6 bg-white rounded-2xl shadow-sm overflow-x-">
-            <h2 className="text-xl font-bold text-gray-800">👥 Users</h2>
-            <p className="mt-2 text-gray-600">List of all users with their details.</p>
-
+            <div>
+                <div>
+                    <h2 className="text-xl font-bold text-gray-800">👥 Users</h2>
+                    <p className="mt-2 text-gray-600">List of all users with their details.</p>
+                </div>
+                <p className="mt-2 text-gray-600">Total: {users.length}</p>
+            </div>
             <div className="mt-6 overflow-x-auto" style={{ WebkitOverflowScrolling: "touch" }}>
                 <table className="w-full min-w-[900px] text-nowrap border-collapse">
                     <thead>
                         <tr className="bg-gray-100 text-left text-gray-700 text-sm">
                             <th className="px-3 py-3">Full Name</th>
                             <th className="px-3 py-3">Email</th>
+                            <th className="px-3 py-3">Phone number</th>
                             <th className="px-3 py-3">KYC</th>
                             <th className="px-3 py-3 text-center">Accounts</th>
                             <th className="px-3 py-3 text-center">Transactions Made</th>
@@ -146,6 +178,9 @@ const Users = () => {
                                     >
                                         <td className="px-3 py-3">{user.fullname}</td>
                                         <td className="px-3 py-3">{user.email}</td>
+                                        <td className="px-3 py-3">
+                                            {formatPhoneNumber(kycdata?.kyc?.phone_number || user.phone_number)}
+                                        </td>
                                         <td className="px-3 py-3">
                                             {kycdata?.kyc?.id ? "✅" : "❌"}
                                         </td>

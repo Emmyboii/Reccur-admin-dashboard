@@ -14,6 +14,37 @@ const UserDetails = () => {
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+    // const handleDeleteAccount = async () => {
+    //     try {
+    //         const token = localStorage.getItem('reccurAdminToken')
+
+    //         if (!token) return
+
+    //         const res = await fetch(
+    //             `${process.env.REACT_APP_BACKEND_URL}/account/${id}`,
+    //             {
+    //                 method: 'DELETE',
+    //                 headers: {
+    //                     Authorization: `Token ${token}`,
+    //                     Accept: 'application/json',
+    //                 },
+    //             }
+    //         )
+
+    //         if (!res.ok) {
+    //             const data = await res.json()
+    //             throw new Error(data.message || 'Account deletion failed')
+    //         }
+
+    //         // setDeleted(true)
+
+    //     } catch (err) {
+    //         console.error('Delete failed:', err)
+    //         // setOnDelete(false)
+    //     }
+    // }
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -150,8 +181,16 @@ const UserDetails = () => {
     return (
         <div className="sm:p-6 p-3 bg-gray-50 min-h-screen">
             {/* User Header */}
-            <div onClick={() => navigate('/users')}>
-                <IoArrowBack className="text-2xl mb-4 cursor-pointer" />
+            <div className="flex justify-between items- mb-3">
+                <div onClick={() => navigate('/users')}>
+                    <IoArrowBack className="text-2xl mb-4 cursor-pointer" />
+                </div>
+                {/* <button
+                    onClick={() => setShowConfirmModal(true)}
+                    className="bg-red-500 text-white px-3 py-2 rounded-md"
+                >
+                    Delete
+                </button> */}
             </div>
             <div className="bg-white sm:p-6 p-3 rounded-2xl shadow-sm">
                 <div className="sm:p-6 p-3 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -280,6 +319,38 @@ const UserDetails = () => {
                     </div>
                 )}
             </div>
+
+            {showConfirmModal && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] sm:w-[400px]">
+                        <h3 className="text-lg font-semibold text-gray-800">
+                            Confirm Delete
+                        </h3>
+                        <p className="text-gray-600 mt-2">
+                            Are you sure you want to delete this user's account? This action cannot be undone.
+                        </p>
+
+                        <div className="mt-6 flex justify-end gap-3">
+                            <button
+                                onClick={() => setShowConfirmModal(false)}
+                                className="px-4 py-2 bg-gray-200 rounded-md hover:bg-gray-300"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={async () => {
+                                    // await handleDeleteAccount();
+                                    setShowConfirmModal(false);
+                                    navigate('/users');
+                                }}
+                                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                            >
+                                Yes, Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
