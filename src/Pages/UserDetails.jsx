@@ -199,6 +199,7 @@ const UserDetails = () => {
                             {user?.fullname}
                         </h2>
                         <p className="text-gray-600">{user?.email}</p>
+                        <p className="text-gray-600">{user?.phone_number}</p>
                     </div>
                     <div className="mt-4 sm:mt-0">
                         <span
