@@ -110,13 +110,13 @@ const Users = () => {
         number = number.replace(/[\s-]/g, '');
 
         // Remove +243 country code if present
-        if (number.startsWith('+243')) {
-            number = number.replace('+243', '');
+        if (number.startsWith('+234')) {
+            number = number.replace('+234', '');
         }
 
         // If it starts with 243 without +, remove it too
-        if (number.startsWith('243')) {
-            number = number.replace('243', '');
+        if (number.startsWith('234')) {
+            number = number.replace('234', '');
         }
 
         // If it doesn't start with 0, add it
