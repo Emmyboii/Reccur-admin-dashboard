@@ -14,16 +14,20 @@ const UserDetails = () => {
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    // const [message, setMessage] = useState({ state: '', message: '' });
+    // const [loadingDelete, setLoadingDelete] = useState(false);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
 
     // const handleDeleteAccount = async () => {
+
+    //     setLoadingDelete(true)
     //     try {
     //         const token = localStorage.getItem('reccurAdminToken')
 
     //         if (!token) return
 
     //         const res = await fetch(
-    //             `${process.env.REACT_APP_BACKEND_URL}/account/${id}`,
+    //             `https://reccur-141b5bf0e007.herokuapp.com/api/v1/account/${id}`,
     //             {
     //                 method: 'DELETE',
     //                 headers: {
@@ -38,11 +42,21 @@ const UserDetails = () => {
     //             throw new Error(data.message || 'Account deletion failed')
     //         }
 
-    //         // setDeleted(true)
+    //         setMessage({ state: 'success', message: 'Account deleted successfully.' })
+
+    //         setTimeout(() => {
+    //             setShowConfirmModal(false);
+    //             navigate('/users');
+    //         }, 2000);
 
     //     } catch (err) {
     //         console.error('Delete failed:', err)
-    //         // setOnDelete(false)
+    //         setMessage({ state: 'error', message: err.message || 'Account deletion failed.' })
+    //     } finally {
+    //         setLoadingDelete(false)
+    //         setTimeout(() => {
+    //             setMessage({ state: '', message: '' });
+    //         }, 3000);
     //     }
     // }
 
@@ -185,12 +199,12 @@ const UserDetails = () => {
                 <div onClick={() => navigate('/users')}>
                     <IoArrowBack className="text-2xl mb-4 cursor-pointer" />
                 </div>
-                {/* <button
+                <button
                     onClick={() => setShowConfirmModal(true)}
                     className="bg-red-500 text-white px-3 py-2 rounded-md"
                 >
                     Delete
-                </button> */}
+                </button>
             </div>
             <div className="bg-white sm:p-6 p-3 rounded-2xl shadow-sm">
                 <div className="sm:p-6 p-3 rounded-2xl flex flex-col sm:flex-row sm:items-center sm:justify-between">
@@ -322,8 +336,9 @@ const UserDetails = () => {
             </div>
 
             {showConfirmModal && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-                    <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] sm:w-[400px]">
+                <div className="fixed inset-0 flex flex-col items-center justify-center bg-black bg-opacity-40 z-50">
+                    <div className="bg-white p-6 rounded-lg shadow-lg w-[90%] sm:w-[400px] relative">
+                        {/* <p className={`${message.state === 'success' ? 'bg-green-500 text-white' : message.state === 'error' ? 'bg-red-500 text-white' : null} p-2 rounded-[10px] mx-auto top-[-50px] left-1/2 -translate-x-1/2 absolute`}>{message.message}</p> */}
                         <h3 className="text-lg font-semibold text-gray-800">
                             Confirm Delete
                         </h3>
@@ -341,11 +356,12 @@ const UserDetails = () => {
                             <button
                                 onClick={async () => {
                                     // await handleDeleteAccount();
-                                    setShowConfirmModal(false);
-                                    navigate('/users');
                                 }}
-                                className="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700"
+                                className={`px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700`}
+                                // className={`px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 ${loadingDelete ? "opacity-50 cursor-not-allowed" : ""}`}
+                                // disabled={loadingDelete}
                             >
+                                {/* {loadingDelete ? "Deleting..." : "Yes, Delete"} */}
                                 Yes, Delete
                             </button>
                         </div>

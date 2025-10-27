@@ -81,7 +81,7 @@ const Users = () => {
                     <h2 className="text-xl font-bold text-gray-800">👥 Users</h2>
                     <p className="mt-2 text-gray-600">List of all users with their details.</p>
                 </div>
-                <p className="mt-2 text-gray-600">Total: {users.length}</p>
+                <p className="mt-2 text-gray-600 font-semibold">Total: {users.length}</p>
             </div>
             <div className="mt-6 overflow-x-auto" style={{ WebkitOverflowScrolling: "touch" }}>
                 <table className="w-full min-w-[900px] text-nowrap border-collapse">
