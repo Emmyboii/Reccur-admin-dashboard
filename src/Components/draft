@@ -1,0 +1,96 @@
+//  const [transactions, setTransactions] = useState([]);
+//     const [accounts, setAccounts] = useState([]);
+//     const [kyc, setKyc] = useState([]);
+
+//     useEffect(() => {
+//         const fetchUsersAndData = async () => {
+//             try {
+//                 const token = localStorage.getItem("reccurAdminToken");
+
+//                 const res = await fetch(
+//                     "https://reccur-141b5bf0e007.herokuapp.com/api/v1/dashboard/get_users",
+//                     {
+//                         headers: {
+//                             Authorization: token ? `Token ${token}` : "",
+//                         },
+//                     }
+//                 );
+//                 const usersData = await res.json();
+//                 setUsers(usersData || []);
+
+//                 const transactionsData = await Promise.all(
+//                     (usersData || []).map(async (user) => {
+//                         try {
+//                             const res3 = await fetch(
+//                                 `https://reccur-141b5bf0e007.herokuapp.com/api/v1/transactions?user_id=${user.id}`,
+//                                 {
+//                                     method: "GET",
+//                                     headers: {
+//                                         Authorization: token ? `Token ${token}` : "",
+//                                     },
+//                                 }
+//                             );
+//                             const data3 = await res3.json();
+//                             return { userId: user.id, transactions: data3 };
+//                         } catch (err) {
+//                             console.error(`Error fetching transactions for ${user.id}:`, err);
+//                             return { userId: user.id, transactions: [] };
+//                         }
+//                     })
+//                 );
+//                 setTransactions(transactionsData);
+
+//                 const accountsData = await Promise.all(
+//                     (usersData || []).map(async (user) => {
+//                         try {
+//                             const res4 = await fetch(
+//                                 `https://reccur-141b5bf0e007.herokuapp.com/api/v1/account?user_id=${user.id}`,
+//                                 {
+//                                     method: "GET",
+//                                     headers: {
+//                                         Authorization: token ? `Token ${token}` : "",
+//                                     },
+//                                 }
+//                             );
+//                             const data4 = await res4.json();
+//                             return { userId: user.id, accounts: data4 };
+//                         } catch (err) {
+//                             console.error(`Error fetching accounts for ${user.id}:`, err);
+//                             return { userId: user.id, accounts: [] };
+//                         }
+//                     })
+//                 );
+//                 setAccounts(accountsData);
+
+//                 const kycData = await Promise.all(
+//                     (usersData || []).map(async (user) => {
+//                         try {
+//                             const res5 = await fetch(
+//                                 `https://reccur-141b5bf0e007.herokuapp.com/api/v1/kyc?user_id=${user.id}`,
+//                                 {
+//                                     method: "GET",
+//                                     headers: {
+//                                         Authorization: token ? `Token ${token}` : "",
+//                                     },
+//                                 }
+//                             );
+//                             const data5 = await res5.json();
+//                             return { userId: user.id, kyc: data5 };
+//                         } catch (err) {
+//                             console.error(`Error fetching kyc for ${user.id}:`, err);
+//                             return { userId: user.id, kyc: [] };
+//                         }
+//                     })
+//                 );
+//                 setKyc(kycData);
+
+//             } catch (err) {
+//                 console.error("Error fetching users:", err);
+//                 setError("Failed to load users.");
+//             } finally {
+//                 setLoading(false);
+//             }
+//         };
+
+//         fetchUsersAndData();
+//     }, []);

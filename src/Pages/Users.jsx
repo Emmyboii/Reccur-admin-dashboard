@@ -6,92 +6,23 @@ const Users = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
-    const [transactions, setTransactions] = useState([]);
-    const [accounts, setAccounts] = useState([]);
-    const [kyc, setKyc] = useState([]);
+   
 
     useEffect(() => {
         const fetchUsersAndData = async () => {
             try {
                 const token = localStorage.getItem("reccurAdminToken");
-
                 const res = await fetch(
-                    "https://reccur-141b5bf0e007.herokuapp.com/api/v1/dashboard/get_users",
+                    `https://reccur-141b5bf0e007.herokuapp.com/api/v1/get_all_user_details`,
                     {
+                        method: "GET",
                         headers: {
                             Authorization: token ? `Token ${token}` : "",
                         },
                     }
                 );
-                const usersData = await res.json();
-                setUsers(usersData || []);
-
-                const transactionsData = await Promise.all(
-                    (usersData || []).map(async (user) => {
-                        try {
-                            const res3 = await fetch(
-                                `https://reccur-141b5bf0e007.herokuapp.com/api/v1/transactions?user_id=${user.id}`,
-                                {
-                                    method: "GET",
-                                    headers: {
-                                        Authorization: token ? `Token ${token}` : "",
-                                    },
-                                }
-                            );
-                            const data3 = await res3.json();
-                            return { userId: user.id, transactions: data3 };
-                        } catch (err) {
-                            console.error(`Error fetching transactions for ${user.id}:`, err);
-                            return { userId: user.id, transactions: [] };
-                        }
-                    })
-                );
-                setTransactions(transactionsData);
-
-                const accountsData = await Promise.all(
-                    (usersData || []).map(async (user) => {
-                        try {
-                            const res4 = await fetch(
-                                `https://reccur-141b5bf0e007.herokuapp.com/api/v1/account?user_id=${user.id}`,
-                                {
-                                    method: "GET",
-                                    headers: {
-                                        Authorization: token ? `Token ${token}` : "",
-                                    },
-                                }
-                            );
-                            const data4 = await res4.json();
-                            return { userId: user.id, accounts: data4 };
-                        } catch (err) {
-                            console.error(`Error fetching accounts for ${user.id}:`, err);
-                            return { userId: user.id, accounts: [] };
-                        }
-                    })
-                );
-                setAccounts(accountsData);
-
-                const kycData = await Promise.all(
-                    (usersData || []).map(async (user) => {
-                        try {
-                            const res5 = await fetch(
-                                `https://reccur-141b5bf0e007.herokuapp.com/api/v1/kyc?user_id=${user.id}`,
-                                {
-                                    method: "GET",
-                                    headers: {
-                                        Authorization: token ? `Token ${token}` : "",
-                                    },
-                                }
-                            );
-                            const data5 = await res5.json();
-                            return { userId: user.id, kyc: data5 };
-                        } catch (err) {
-                            console.error(`Error fetching kyc for ${user.id}:`, err);
-                            return { userId: user.id, kyc: [] };
-                        }
-                    })
-                );
-                setKyc(kycData);
-
+                const data = await res.json();
+                setUsers(data || []);
             } catch (err) {
                 console.error("Error fetching users:", err);
                 setError("Failed to load users.");
@@ -102,6 +33,7 @@ const Users = () => {
 
         fetchUsersAndData();
     }, []);
+
 
     function formatPhoneNumber(number) {
         if (!number) return '';
@@ -168,30 +100,27 @@ const Users = () => {
                     <tbody>
                         {users.length > 0 ? (
                             users.map((user) => {
-                                const userAcc = accounts.find((a) => a.userId === user.id);
-                                const trans = transactions.find((a) => a.userId === user.id);
-                                const kycdata = kyc.find((a) => a.userId === user.id);
                                 return (
                                     <tr
                                         key={user.id}
                                         className="border-b hover:bg-gray-50 text-sm text-gray-800"
                                     >
-                                        <td className="px-3 py-3">{user.fullname}</td>
-                                        <td className="px-3 py-3">{user.email}</td>
+                                        <td className="px-3 py-3">{user?.user.fullname}</td>
+                                        <td className="px-3 py-3">{user?.user.email}</td>
                                         <td className="px-3 py-3">
-                                            {formatPhoneNumber(kycdata?.kyc?.phone_number || user.phone_number)}
+                                            {formatPhoneNumber(user?.user.phone_number)}
                                         </td>
                                         <td className="px-3 py-3">
-                                            {kycdata?.kyc?.id ? "✅" : "❌"}
+                                            {user?.kyc ? "✅" : "❌"}
                                         </td>
                                         <td className="px-3 py-3 text-center">
-                                            {userAcc?.accounts?.length || 0}
+                                            {user?.accounts || 0}
                                         </td>
                                         <td className="px-3 py-3 text-center">
-                                            {trans?.transactions?.length || 0}
+                                            {user?.transactions || 0}
                                         </td>
                                         <td className="px-3 py-3">
-                                            {new Date(user.date_joined).toLocaleDateString("en-US", {
+                                            {new Date(user?.user.date_joined).toLocaleDateString("en-US", {
                                                 day: "numeric",
                                                 month: "short",
                                                 year: "numeric",
@@ -199,7 +128,7 @@ const Users = () => {
                                         </td>
                                         <td className="px-3 py-3 text-end">
                                             <button
-                                                onClick={() => navigate(`/users/${user.id}`)}
+                                                onClick={() => navigate(`/users/${user?.user.id}`)}
                                                 className="px-3 py-1 text-sm rounded-lg bg-indigo-600 text-white hover:bg-indigo-700"
                                             >
                                                 View Details
