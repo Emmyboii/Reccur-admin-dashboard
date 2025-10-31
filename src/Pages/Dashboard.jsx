@@ -27,7 +27,7 @@ const Dashboard = () => {
       try {
         // Fetch signup data
         const res1 = await fetch(
-          "https://reccur-141b5bf0e007.herokuapp.com/api/v1/get_signup_data",
+          "https://api.reccur.co/get_signup_data",
           {
             method: "GET",
             headers: { Authorization: `Token ${token}` },
@@ -38,7 +38,7 @@ const Dashboard = () => {
 
         // Fetch total clients
         const res2 = await fetch(
-          "https://reccur-141b5bf0e007.herokuapp.com/api/v1/get_total_clients",
+          "https://api.reccur.co/get_total_clients",
           {
             method: "GET",
             headers: { Authorization: `Token ${token}` },
@@ -49,7 +49,7 @@ const Dashboard = () => {
 
         // Fetch user journey
         const res3 = await fetch(
-          "https://reccur-141b5bf0e007.herokuapp.com/api/v1/get_user_journey",
+          "https://api.reccur.co/get_user_journey",
           {
             method: "GET",
             headers: { Authorization: `Token ${token}` },

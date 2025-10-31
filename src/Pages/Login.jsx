@@ -50,7 +50,7 @@ const Login = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch(`https://reccur-141b5bf0e007.herokuapp.com/api/v1/login`, {
+            const response = await fetch(`https://api.reccur.co/login`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

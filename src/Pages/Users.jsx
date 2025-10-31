@@ -13,7 +13,7 @@ const Users = () => {
             try {
                 const token = localStorage.getItem("reccurAdminToken");
                 const res = await fetch(
-                    `https://reccur-141b5bf0e007.herokuapp.com/api/v1/get_all_user_details`,
+                    `https://api.reccur.co/get_all_user_details`,
                     {
                         method: "GET",
                         headers: {

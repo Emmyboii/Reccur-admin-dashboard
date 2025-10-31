@@ -27,7 +27,7 @@ const UserDetails = () => {
     //         if (!token) return
 
     //         const res = await fetch(
-    //             `https://reccur-141b5bf0e007.herokuapp.com/api/v1/account/${id}`,
+    //             `https://api.reccur.co/account/${id}`,
     //             {
     //                 method: 'DELETE',
     //                 headers: {
@@ -66,7 +66,7 @@ const UserDetails = () => {
                 const token = localStorage.getItem("reccurAdminToken")
 
                 const res1 = await fetch(
-                    `https://reccur-141b5bf0e007.herokuapp.com/api/v1/dashboard/get_users?user_id=${id}`,
+                    `https://api.reccur.co/dashboard/get_users?user_id=${id}`,
                     {
                         method: "GET",
                         headers: {
@@ -80,7 +80,7 @@ const UserDetails = () => {
                 console.log(data1);
 
                 const res2 = await fetch(
-                    `https://reccur-141b5bf0e007.herokuapp.com/api/v1/account?user_id=${id}`,
+                    `https://api.reccur.co/account?user_id=${id}`,
                     {
                         method: "GET",
                         headers: {
@@ -94,7 +94,7 @@ const UserDetails = () => {
                 console.log(data2);
 
                 const res3 = await fetch(
-                    `https://reccur-141b5bf0e007.herokuapp.com/api/v1/transactions?user_id=${id}`,
+                    `https://api.reccur.co/transactions?user_id=${id}`,
                     {
                         method: "GET",
                         headers: {
@@ -109,7 +109,7 @@ const UserDetails = () => {
 
 
                 // const res5 = await fetch(
-                //     `https://reccur-141b5bf0e007.herokuapp.com/api/v1/get_wallet_balance?user_id=${id}`,
+                //     `https://api.reccur.co/get_wallet_balance?user_id=${id}`,
                 //     {
                 //         method: "GET",
                 //         headers: {
@@ -137,7 +137,7 @@ const UserDetails = () => {
         const fetchkyc = async () => {
             const token = localStorage.getItem("reccurAdminToken")
             const res4 = await fetch(
-                `https://reccur-141b5bf0e007.herokuapp.com/api/v1/kyc?user_id=${id}`,
+                `https://api.reccur.co/kyc?user_id=${id}`,
                 {
                     method: "GET",
                     headers: {

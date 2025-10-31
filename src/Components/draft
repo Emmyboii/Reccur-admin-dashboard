@@ -8,7 +8,7 @@
 //                 const token = localStorage.getItem("reccurAdminToken");
 
 //                 const res = await fetch(
-//                     "https://reccur-141b5bf0e007.herokuapp.com/api/v1/dashboard/get_users",
+//                     "https://api.reccur.co/dashboard/get_users",
 //                     {
 //                         headers: {
 //                             Authorization: token ? `Token ${token}` : "",
@@ -22,7 +22,7 @@
 //                     (usersData || []).map(async (user) => {
 //                         try {
 //                             const res3 = await fetch(
-//                                 `https://reccur-141b5bf0e007.herokuapp.com/api/v1/transactions?user_id=${user.id}`,
+//                                 `https://api.reccur.co/transactions?user_id=${user.id}`,
 //                                 {
 //                                     method: "GET",
 //                                     headers: {
@@ -44,7 +44,7 @@
 //                     (usersData || []).map(async (user) => {
 //                         try {
 //                             const res4 = await fetch(
-//                                 `https://reccur-141b5bf0e007.herokuapp.com/api/v1/account?user_id=${user.id}`,
+//                                 `https://api.reccur.co/account?user_id=${user.id}`,
 //                                 {
 //                                     method: "GET",
 //                                     headers: {
@@ -66,7 +66,7 @@
 //                     (usersData || []).map(async (user) => {
 //                         try {
 //                             const res5 = await fetch(
-//                                 `https://reccur-141b5bf0e007.herokuapp.com/api/v1/kyc?user_id=${user.id}`,
+//                                 `https://api.reccur.co/kyc?user_id=${user.id}`,
 //                                 {
 //                                     method: "GET",
 //                                     headers: {
