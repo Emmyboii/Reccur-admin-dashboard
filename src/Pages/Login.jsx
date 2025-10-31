@@ -50,7 +50,7 @@ const Login = () => {
         setIsSubmitting(true);
 
         try {
-            const response = await fetch(`https://api.reccur.co/login`, {
+            const response = await fetch(`https://api.reccur.co/api/v1/login`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',
