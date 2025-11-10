@@ -1,5 +1,5 @@
 import Dashboard from "./Pages/Dashboard";
-import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Login from "./Pages/Login";
 import NotFound from "./Pages/NotFound";
 import { useEffect, useState } from "react";
@@ -35,7 +35,7 @@ function App() {
     window.location.reload()
   }
 
-  const hide = location.pathname.includes('/login')
+  const hide = location.pathname.includes('/login') || location.pathname.includes('/404')
 
   return (
     <div className="min-h-screen bg-[#f8f7fa]">
@@ -117,7 +117,9 @@ function App() {
             </PublicRoute>
           }
         />
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Navigate to="/404" replace />} />
+
+        <Route path="/404" element={<NotFound />} />
       </Routes>
     </div>
   );

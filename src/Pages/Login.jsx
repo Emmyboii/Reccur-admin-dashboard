@@ -151,7 +151,6 @@ const Login = () => {
                                 )}
                             </div>
                             {validationError.password && <p className='text-[#EF4444] font-normal text-[14px] 3xl:text-[23px]'>{validationError.password}</p>}
-                            <a href='/forgotpassword' className='text-[#531CB3] mt-2 text-[14px] 3xl:text-[23px] font-medium'>Forgot Password?</a>
                         </div>
                         <div className='flex flex-col gap-3'>
                             <button
