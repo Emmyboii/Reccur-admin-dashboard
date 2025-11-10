@@ -10,6 +10,7 @@ import UserDetails from "./Pages/UserDetails";
 import Logo from './Images/Logo_base2.svg';
 import { LuLayoutDashboard } from "react-icons/lu";
 import { GoPeople } from "react-icons/go";
+import { IoLogOutOutline } from "react-icons/io5";
 
 function App() {
   const [dashboardView, setDashboardView] = useState(() => {
@@ -28,6 +29,11 @@ function App() {
       localStorage.clear();
     }
   }, []);
+
+  const logout = () => {
+    localStorage.clear()
+    window.location.reload()
+  }
 
   const hide = location.pathname.includes('/login')
 
@@ -48,25 +54,38 @@ function App() {
         </div>
       )}
 
-      <div className="p-2 w-[270px] border-[1.5px] m-10 border-purple-200 flex items-center justify-between mx-auto sm:mx-10 gap-2 rounded-xl bg-white">
-        <div onClick={() => {
-          navigate('/')
-          setDashboardView('dashboard')
-          localStorage.setItem('dashboardView', 'dashboard')
-        }} className={`flex items-center ${dashboardView === 'dashboard' && 'rounded-full bg-purple-500 text-white'} p-2 py-1 cursor-pointer gap-2`}>
-          <LuLayoutDashboard className="text-lg" />
-          <p className="font-semibold text-lg">Dashboard</p>
-        </div>
+      {!hide && (
+        <div className="flex sp:flex-row flex-col sp:items-center items-start justify-between gap-4 sm:p-10 p-5">
 
-        <div onClick={() => {
-          navigate('/')
-          setDashboardView('users')
-          localStorage.setItem('dashboardView', 'users')
-        }} className={`flex items-center ${dashboardView === 'users' && 'rounded-full bg-purple-500 text-white'} p-2 py-1 cursor-pointer gap-2`}>
-          <GoPeople className="text-lg" />
-          <p className="font-semibold text-lg">Users</p>
+          <div className="p-2 w-[270px] border-[1.5px] border-purple-200 flex items-center justify-between mx-auto sm:mx-10 gap-2 rounded-xl bg-white">
+            <div onClick={() => {
+              navigate('/')
+              setDashboardView('dashboard')
+              localStorage.setItem('dashboardView', 'dashboard')
+            }} className={`flex items-center ${dashboardView === 'dashboard' && 'rounded-full bg-purple-500 text-white'} p-2 py-1 cursor-pointer gap-2`}>
+              <LuLayoutDashboard className="text-lg" />
+              <p className="font-semibold text-lg">Dashboard</p>
+            </div>
+
+            <div onClick={() => {
+              navigate('/')
+              setDashboardView('users')
+              localStorage.setItem('dashboardView', 'users')
+            }} className={`flex items-center ${dashboardView === 'users' && 'rounded-full bg-purple-500 text-white'} p-2 py-1 cursor-pointer gap-2`}>
+              <GoPeople className="text-lg" />
+              <p className="font-semibold text-lg">Users</p>
+            </div>
+          </div>
+
+          <div
+            onClick={() => logout()}
+            className={`flex items-center text-left gap-3 cursor-pointer text-red-500 py-2 rounded-lg text-base font-medium`}
+          >
+            <IoLogOutOutline size={18} />
+            Log Out
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main content */}
       <Routes>

@@ -51,7 +51,6 @@ const Sidebar = ({ closeSidebar }) => {
       </nav>
 
       <div
-        to="/users"
         onClick={() => logout()}
         className={`flex items-center gap-3 cursor-pointer text-red-500 px-6 absolute bottom-5 py-2 rounded-lg text-base font-medium`}
       >
