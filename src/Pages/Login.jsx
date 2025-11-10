@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Logo from '../Images/Logo base2.svg';
+import Logo from '../Images/Logo_base2.svg';
 import { useNavigate } from 'react-router-dom';
 import { IoEyeOutline, IoEyeOffOutline } from "react-icons/io5";
 

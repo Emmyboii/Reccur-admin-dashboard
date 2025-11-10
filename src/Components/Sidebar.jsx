@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { FiHome, FiUsers } from "react-icons/fi";
-import Logo from "../Images/Logo base2.svg";
+import Logo from "../Images/Logo_base2.svg";
 import { IoLogOutOutline } from "react-icons/io5";
 
 const Sidebar = ({ closeSidebar }) => {

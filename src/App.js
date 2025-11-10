@@ -1,18 +1,24 @@
 import Dashboard from "./Pages/Dashboard";
-import { Route, Routes, useLocation } from "react-router-dom";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Login from "./Pages/Login";
 import NotFound from "./Pages/NotFound";
 import { useEffect, useState } from "react";
 import ProtectedRoute from "./Components/ProtectedRoutes";
 import PublicRoute from "./Components/PublicRoute";
-import Sidebar from "./Components/Sidebar";
 import Users from "./Pages/Users";
-import { FiMenu } from "react-icons/fi";
 import UserDetails from "./Pages/UserDetails";
+import Logo from './Images/Logo_base2.svg';
+import { LuLayoutDashboard } from "react-icons/lu";
+import { GoPeople } from "react-icons/go";
 
 function App() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [dashboardView, setDashboardView] = useState(() => {
+    const view = localStorage.getItem('dashboardView') || 'dashboard'
+
+    return view
+  });
   const location = useLocation()
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timestamp = localStorage.getItem("tokenTimestamp");
@@ -26,90 +32,74 @@ function App() {
   const hide = location.pathname.includes('/login')
 
   return (
-    <div className="flex min-h-screen bg-gray-50">
-      {/* Sidebar for desktop */}
+    <div className="min-h-screen bg-[#f8f7fa]">
+
       {!hide && (
-        <div className="hidden mp:block w-64 bg-white shadow-lg">
-          <Sidebar />
+        <div className="py-4 sm:px-10 px-5 bg-white border-[1.5px] border-purple-200 flex sp:flex-row flex-col sp:items-center items-start justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <img src={Logo} className="size-[30px]" alt="" />
+            <div className="space-y-1">
+              <p className="text-base font-semibold">Reccur Dashboard</p>
+              <p className="font-medium text-black/60 text-sm">Global Payment Platform</p>
+            </div>
+          </div>
+
+          <p className="rounded-full bg-purple-100 text-sm text-purple-500 p-3 sp:block hidden">USD/EUR Accounts</p>
         </div>
       )}
 
-      {/* Mobile sidebar (drawer) */}
-      {!hide && (
-        <>
-          {sidebarOpen && (
-            <>
-              {/* Overlay */}
-              <div
-                className="fixed inset-0 bg-black bg-opacity-30 z-30"
-                onClick={() => setSidebarOpen(false)}
-              />
+      <div className="p-2 w-[270px] border-[1.5px] m-10 border-purple-200 flex items-center justify-between mx-auto sm:mx-10 gap-2 rounded-xl bg-white">
+        <div onClick={() => {
+          navigate('/')
+          setDashboardView('dashboard')
+          localStorage.setItem('dashboardView', 'dashboard')
+        }} className={`flex items-center ${dashboardView === 'dashboard' && 'rounded-full bg-purple-500 text-white'} p-2 py-1 cursor-pointer gap-2`}>
+          <LuLayoutDashboard className="text-lg" />
+          <p className="font-semibold text-lg">Dashboard</p>
+        </div>
 
-              {/* Sidebar */}
-              <div
-                className={`fixed inset-y-0 left-0 w-64 bg-white h-full shadow-lg z-40 transform transition-transform duration-300 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
-                  }`}
-              >
-                <Sidebar closeSidebar={() => setSidebarOpen(false)} />
-              </div>
-            </>
-          )}
-        </>
-      )}
-
-      {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Top bar with menu button for mobile */}
-        {!hide && (
-          <div className="mp:hidden flex items-center justify-between bg-white p-4 shadow-sm">
-            <button
-              onClick={() => setSidebarOpen(true)}
-              className="text-gray-700 text-2xl"
-            >
-              <FiMenu />
-            </button>
-            <h1 className="text-xl font-bold">Reccur Admin</h1>
-          </div>
-        )}
-
-        <div className="p-4 flex-1 min-w-0">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <ProtectedRoute>
-                  <Dashboard />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/users"
-              element={
-                <ProtectedRoute>
-                  <Users />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/users/:id"
-              element={
-                <ProtectedRoute>
-                  <UserDetails />
-                </ProtectedRoute>
-              }
-            />
-            <Route
-              path="/login"
-              element={
-                <PublicRoute>
-                  <Login />
-                </PublicRoute>
-              }
-            />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+        <div onClick={() => {
+          navigate('/')
+          setDashboardView('users')
+          localStorage.setItem('dashboardView', 'users')
+        }} className={`flex items-center ${dashboardView === 'users' && 'rounded-full bg-purple-500 text-white'} p-2 py-1 cursor-pointer gap-2`}>
+          <GoPeople className="text-lg" />
+          <p className="font-semibold text-lg">Users</p>
         </div>
       </div>
+
+      {/* Main content */}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <ProtectedRoute>
+              {dashboardView === 'dashboard' ? (
+                <Dashboard />
+              ) : (
+                <Users />
+              )}
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/users/:id"
+          element={
+            <ProtectedRoute>
+              <UserDetails />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <Login />
+            </PublicRoute>
+          }
+        />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </div>
   );
 }
